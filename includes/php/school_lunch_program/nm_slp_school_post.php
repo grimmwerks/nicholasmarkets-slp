@@ -124,7 +124,56 @@ echo '<table class="wp-list-table widefat fixed posts" cellspacing="0"><thead><t
 		/** END MAIN SCHOOL INFO metabox **/
 		
 		
+
+		/** adding bagel day metabox **/
+		add_meta_box('school-bagel-days', __('Bagel Days'), 'show_slp_school_bageldays', 'slp_school', 'normal', 'core');
 		
+		function show_slp_school_bageldays($post){
+			global $post;
+			$schoolID = $post->ID;
+			$bagelPrice = get_post_meta($post->ID, 'bagelPrice', TRUE);
+			$hasBagelday = get_post_meta($post->ID, 'hasBagelday', TRUE);
+			$bagelCommission = get_post_meta($post->ID, 'bagelCommission', TRUE);
+			wp_nonce_field('slp_school-bagelday-nonce', 'slp_school-bagelday-nonce');
+
+?>			
+		<div style="width:100%; padding-top:5px; padding-bottom: 5px;">
+			<div style="float:left; width: 50%;">
+				<div style="width: 100%; padding-left:10px; float:left; padding-bottom:10px;">
+					<label class="howto" for="hasBagelday"><span style="padding-bottom:20px"></span><br /></label>
+					<span><label><input type="checkbox" name="hasBagelday"  value="true" <?php echo (($hasBagelday=="true") ?  ' checked ' :  ""); ?> /> Bagel Day?</label></span>
+				</div>
+				<br />
+				<div style="width: 100%; padding-left:10px; float:left; padding-bottom:10px;">
+					<label class="howto" for="bagelPrice">
+					<span style="padding-bottom:10px">BagelDay Price</span><br /></label>
+					$<input type="text" name="bagelPrice" size="10" value="<?php echo $bagelPrice; ?>" />
+				</div>	
+				
+				<br />
+				
+				<div style="width: 100%; padding-left:10px; float:left; padding-bottom:10px;">
+					<label class="howto" for="bagelCommission[]">
+					<span style="padding-bottom:10px">Bagel Commission</span><br /></label>
+					$<input type="text" name="bagelCommission" size="10" value="<?php echo $bagelCommission; ?>" />
+				</div>	
+			</div>
+			<div >
+
+				<div style="padding-left:10px; float:left; padding-bottom:10px;">
+					<?php echo do_shortcode('[slp_bagelday_calendar]'); ?>
+				</div>
+			</div>
+		</div>
+		<p>&nbsp;</p><br class="clear" /><br class="clear" />
+<?php
+		}
+
+
+
+
+
+
 		
 		
 		
@@ -265,9 +314,22 @@ function save_school_information($post_id){
 		
 		update_post_meta($post_id, "weekdays",serialize($_POST['weekdays']));
 		
-		if(isset($_POST['holidays'])){
-			sort($_POST['holidays'], 'SORT_NUMERIC');
-			update_post_meta($post_id, 'holidays', $_POST['holidays']);
+		if(isset($_POST['bageldays'])){
+			sort($_POST['bageldays'], 'SORT_NUMERIC');
+			update_post_meta($post_id, 'bageldays', $_POST['bageldays']);
+		}
+
+		
+		if(isset($_POST['bagelPrice'])){
+			update_post_meta($post_id, "bagelPrice", esc_attr($_POST['bagelPrice']));
+		}
+
+		if(isset($_POST['hasBagelday'])){
+			update_post_meta($post_id, "hasBagelday", esc_attr($_POST['hasBagelday']));
+		}
+
+		if(isset($_POST['bagelCommission'])){
+			update_post_meta($post_id, "bagelCommission", esc_attr($_POST['bagelCommission']));
 		}
 			
 		if(isset($_POST['commission'])){

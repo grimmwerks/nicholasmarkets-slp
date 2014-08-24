@@ -19,8 +19,8 @@ class NM_Custom{
 	
 	public function __construct(){
 		require_once( NM_BASE_DIR . "/includes/php/nicholas-markets-functions.php");
-		require_once( NM_BASE_DIR . "/includes/php/nm_posttype_recipes.php");
-		require_once( NM_BASE_DIR . "/includes/php/nm-truly-local_posttypes.php");
+		// require_once( NM_BASE_DIR . "/includes/php/nm_posttype_recipes.php");
+		// require_once( NM_BASE_DIR . "/includes/php/nm-truly-local_posttypes.php");
 
 		add_action("admin_menu", array(&$this, "create_slp_menu_page"));
 
@@ -58,6 +58,7 @@ class NM_Custom{
 		require_once( NM_BASE_DIR . "/includes/php/school_lunch_program/nm_slp_dashboard_totals.php");
 		//require_once( NM_BASE_DIR . "/includes/php/school_lunch_program/nm_slp_dashboard_reporter.php");
 		require_once( NM_BASE_DIR . "/includes/php/school_lunch_program/shortcodes_holiday_calendar.php");
+		require_once( NM_BASE_DIR . "/includes/php/school_lunch_program/shortcodes_bagelday_calendar.php");
 		require_once( NM_BASE_DIR . "/includes/php/school_lunch_program/nm_slp_admin.php");
 		require_once(NM_BASE_DIR . "/includes/php/school_lunch_program/nm_slp_report_runner.php");
 		require_once(NM_BASE_DIR . '/includes/php/nm_testimonial_taxonomy.php');
