@@ -314,6 +314,11 @@ function save_school_information($post_id){
 		
 		update_post_meta($post_id, "weekdays",serialize($_POST['weekdays']));
 		
+		if(isset($_POST['holidays'])){
+			sort($_POST['holidays'], 'SORT_NUMERIC');
+			update_post_meta($post_id, 'holidays', $_POST['holidays']);
+		}
+		
 		if(isset($_POST['bageldays'])){
 			sort($_POST['bageldays'], 'SORT_NUMERIC');
 			update_post_meta($post_id, 'bageldays', $_POST['bageldays']);

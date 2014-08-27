@@ -15,6 +15,9 @@ define('NM_BASE_DIR', dirname(__FILE__));
 //define('datepick_package', NM_BASE_DIR . "/includes/admin/jquery.datepick.package");
 define('datepick_package',  plugins_url('/includes/js/jquery.datepick.package', NM_BASE_FILE));
 
+require_once(NM_BASE_DIR . "/../krumo_0/class.krumo.php");
+
+
 class NM_Custom{
 	
 	public function __construct(){

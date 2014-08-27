@@ -145,8 +145,26 @@ add_action('wp_ajax_nopriv_student_lunch_clear_cart', 'student_lunch_clear_cart'
 	$weekdays = unserialize(get_post_meta($schoolID, 'weekdays', TRUE));
 	$holidays = get_post_meta($schoolID,'holidays',true);
 	$cutoffDay = get_post_meta($schoolID, $str, TRUE );
+
+	$hasBagelday = get_post_meta($schoolID, 'hasBagelday', TRUE);
+	$bagelPrice = get_post_meta($schoolID, 'bagelPrice', TRUE);
+	$bagelCommission = get_post_meta($schoolID, 'bagelCommission', TRUE);
+	$bagelDays = get_post_meta($schoolID,'bageldays',true);
+
+
 	// look up school price, holiday, weekday
-	$ret = json_encode(array("lunchPrice" => $lunchPrice, "weekdays"=>$weekdays, "holidays"=>$holidays, 'monthName'=> $month_name, 'cutoffDay'=>$cutoffDay, 'string'=>$str, 'schoolID'=>$schoolID));
+	$ret = json_encode(array(
+		"hasBagelday" => $hasBagelday,
+		"bagelPrice" => $bagelPrice,
+		"bagelCommission" => $bagelCommission,
+		"bagelDays" => $bagelDays, 
+		"lunchPrice" => $lunchPrice, 
+		"weekdays"=>$weekdays, 
+		"holidays"=>$holidays, 
+		'monthName'=> $month_name, 
+		'cutoffDay'=>$cutoffDay, 
+		'string'=>$str, 
+		'schoolID'=>$schoolID));
 	echo $ret;
 		 die();
 	 
@@ -161,8 +179,22 @@ function slp_school_data_by_id(){
 	$lunchPrice = get_post_meta($schoolID, 'lunchPrice', TRUE);
 	$weekdays = unserialize(get_post_meta($schoolID, 'weekdays', TRUE));
 	$holidays = get_post_meta($schoolID,'holidays',true);
+
+	$hasBagelday = get_post_meta($schoolID, 'hasBagelday', TRUE);
+	$bagelPrice = get_post_meta($schoolID, 'bagelPrice', TRUE);
+	$bagelCommission = get_post_meta($schoolID, 'bagelCommission', TRUE);
+	$bagelDays = get_post_meta($schoolID,'bageldays',true);
+
 	// look up school price, holiday, weekday
-	$ret = json_encode(array("lunchPrice" => $lunchPrice, "weekdays"=>$weekdays, "holidays"=>$holidays));
+	$ret = json_encode(array(
+		"hasBagelday" => $hasBagelday,
+		"bagelPrice" => $bagelPrice,
+		"bagelCommission" => $bagelCommission,
+		"bagelDays" => $bagelDays, 
+		"lunchPrice" => $lunchPrice, 
+		"weekdays"=>$weekdays, 
+		"holidays"=>$holidays));
+	// krumo($ret);
 	echo $ret;
 		 die();
 }
