@@ -28,7 +28,7 @@ td.calendar-day:hover  { background:#eceff5; }
 td.calendar-day-np  { background:#d1d1d1; min-height:80px; border-bottom:1px solid #333; border-top:1px solid #333; border-right:1px solid #333;} * html div.calendar-day-np { height:80px; }
 /* td.calendar-day-head { background:#ccc; font-weight:bold; text-align:center; width:120px; padding:5px; border-bottom:1px solid #999; border-top:1px solid #999; border-right:1px solid #999; } */
 td.calendar-day-head {color:white; background:#298CBA; font-weight:bold; text-align:center; width:120px; padding:5px; border-bottom:1px solid #333; border-top:1px solid #333; border-right:1px solid #333; }
-div.day-number    {top:0px; background:#999; padding:5px; color:#fff; float:right; margin:5px -5px 0 0; width:20px; text-align:center;
+div.day-number    {top:0px; background:#999; padding:5px; color:#fff; float:right; margin:5px -5px 0 0; width:35px; text-align:center;
 	font: bold 2em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 /* shared */

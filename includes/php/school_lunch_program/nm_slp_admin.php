@@ -165,7 +165,7 @@ add_action('wp_ajax_nopriv_student_lunch_clear_cart', 'student_lunch_clear_cart'
 		'cutoffDay'=>$cutoffDay, 
 		'string'=>$str, 
 		'schoolID'=>$schoolID));
-	echo $ret;
+		echo $ret;
 		 die();
 	 
  }

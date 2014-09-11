@@ -54,6 +54,24 @@ if(!(function_exists('draw_calendar'))){
 				$tmpPrice = shopp('product', 'price', 'return=true');
 				$tagOptions.='<option  value="~*~|'.$tmpId.'|Meal">'.$tmpName.' - '.$tmpPrice.'</option>';
 			endwhile;
+
+			
+			$allVirginBagels='<option value=""></option>';
+			$bagelData = shopp_product( 'BagelDay', 'name' );
+			$variants=shopp_product_variants("BagelDay", "name");
+			foreach ($variants as $val) {
+				// krumo($val->label);
+				$tmpId = $val->product;
+				$tmpName = $val->label;
+				$allVirginBagels.='<option  value="~~|'.$tmpId.'|Bagel">'.$tmpName.' - $0.00</option>';
+				// krumo($val);
+			}
+
+			// $vars = shopp_product_variant_options($bagelData->id);
+			// need to construct options
+			// foreach($vars['type'] as $x){
+			// 	// krumo($x);
+			// }
 		 
 	/**	
 			MEALS  getting all hot meals and addons without the needed strings to cut down on repeating loops
@@ -201,7 +219,6 @@ if(!(function_exists('draw_calendar'))){
 			if($days_in_this_week>1 && $days_in_this_week<7){
 				$select_count++;
 				/**   attempt to create pulldown  **/
-				$calendar.="<Label>Select Meal:</Label>";
 	                       
 	
 				if(strtotime($strDate) >= strtotime($today)){
@@ -212,11 +229,10 @@ if(!(function_exists('draw_calendar'))){
 						
 				}
 	            
-	
-	
-				$calendar.='<div class="singleline" id="div-Meal-'.$strDate.'"></div><div style="width:120px;overflow:hidden;"><select class="wide" style="z-index:+1;" weekday="day'.$days_in_this_week.'"  name="meal[select-meal-'.$select_count.']"  id="Meal-'.$strDate.'" '.$append.' >';
-				$calendar.='<option name="Select Lunch:" value="" selected />';
-				
+				$calendar.='<div id="meal-group-'.$list_day.'" style="width:120px;overflow:hidden;">';
+				$calendar.="<Label><b>Select Meal:</b></Label>";
+				$calendar.='<div class="singleline" id="div-Meal-'.$strDate.'"></div><div style="width:120px;overflow:hidden;"><select  class="wide" style="z-index:+1;" weekday="day'.$days_in_this_week.'"  name="meal[select-meal-'.$select_count.']"  id="Meal-'.$strDate.'" '.$append.' >';
+				$calendar.='<option name="Select Lunch:"  value="" selected />';
 				
 				
 				// get all regular meals
@@ -226,7 +242,7 @@ if(!(function_exists('draw_calendar'))){
 	
 				$tag = $month.'-'.$list_day.'-'.$year;
 				$calendar.='<optgroup  label="Select Hot Meal:">';
-				$calendar.=str_replace("~*~", $strDate,$tagOptions);
+				$calendar.=str_replace("~*~", $strDate, $tagOptions);
 				shopp('storefront','tag-products', 'tag='.$tag.'&load=true');
 				if(shopp('collection', 'hasproducts', 'load=prices')):
 					while(shopp('category', 'products')):
@@ -237,13 +253,31 @@ if(!(function_exists('draw_calendar'))){
 					endwhile;
 				endif;
 				$calendar.='</optgroup>';
-				$calendar.= '</select></div>';
+				$calendar.= '</select></div></div>';
 	
 				// see if this meal is in the cart   <------ wtf?
 				$mkey = "Meal-".$strDate;
 				if(array_key_exists($mkey, $cartitems)){
 						
 				}
+
+
+
+
+				/** bagel day print out and hiding? **/
+				$calendar.='<div id="bagelday-group-'.$list_day.'" style="width:120px;overflow:hidden;">';
+				$calendar.="<Label><b>Select Bagel:</b></Label>";
+				$tag = $month.'-'.$list_day.'-'.$year;
+				$calendar.='<div class="singleline" id="div-BagelDay-'.$strDate.'"></div><div style="width:120px;overflow:hidden;"><select  class="wide" style="z-index:+1;" weekday="day'.$days_in_this_week.'"  name="bagelday[select-bagelday-'.$select_count.']"  id="BagelDay-'.$strDate.'"  >'; //'.$append.'
+				// $calendar.='<optgroup  label="Make BagelDay Selection:">';
+				$calendar.= str_replace("~~", $strDate, $allVirginBagels);
+				$calendar.='</select></div>';
+				$calendar.='</div>';
+
+
+
+
+
 	
 	
 	
@@ -257,6 +291,9 @@ if(!(function_exists('draw_calendar'))){
 					$calendar.='</optgroup></select></div>';
 				endfor;
 	
+
+				
+
 	
 	
 			}

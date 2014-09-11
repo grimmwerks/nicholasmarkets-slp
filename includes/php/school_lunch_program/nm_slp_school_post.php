@@ -462,13 +462,21 @@ function slp_school_column_data($col, $post_id){
 		//$meta = get_post_meta($post_id);
 		switch($col){
 			case 'pricing':
-				echo "<p>Lunch Prices:<br />";
-				echo '<strong>$ '. get_post_meta($post_id, "lunchPrice", true) . '</strong></p>';
+				$str ="";
+				$str .= "<p>Lunch Prices:<br />";
+				$str .= '<strong>$ '. get_post_meta($post_id, "lunchPrice", true) . '</strong></p>';
 				if(get_post_meta($post_id, "hasCommission", true)=="true"){
-					echo "Commission:<br />";
-					echo "<strong>$ ".get_post_meta($post_id, "commission", true).'</strong>';
+					$str.= "Commission:<br />";
+					$str .= "<strong>$ ".get_post_meta($post_id, "commission", true).'</strong>';
 				}
-				break;
+				if(get_post_meta($post_id, "hasBagelday", true)=="true"){
+					$str .= "<p>&nbsp;<p><p>Bagel Day:<br />";
+					$str .= '<strong>$ '. get_post_meta($post_id, "bagelPrice", true) . '</strong></p>';
+					$str.= "Commission:<br />";
+					$str .= "<strong>$ ".get_post_meta($post_id, "bagelCommission", true).'</strong>';
+				}
+
+				echo $str; break;
 			case 'teachers':
 				$staff  = new WP_Query(array('showposts'=>-1, 'post_type'=>'slp_teacher',  'meta_key'=>'grade','orderby'=>'meta_value','order'=>'desc','meta_query'=> array( array('key'=>'schoolID', 'value'=>$post_id, 'compare'=>'='))));
 				
